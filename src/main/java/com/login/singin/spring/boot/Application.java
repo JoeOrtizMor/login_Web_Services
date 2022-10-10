@@ -33,20 +33,20 @@ public class Application implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
         //Registro del Usuario admin
-        try{
+        /*try{
         Usuario usuario = new Usuario();
         
-        usuario.setNombre("Joe");
-        usuario.setApellidos("Ortiz");
-        usuario.setUsername("JoeOrtizMorales");
+        usuario.setNombre("Karen");
+        usuario.setApellidos("datta");
+        usuario.setUsername("Karen99");
         usuario.setPassword(bCryptPasswordEncoder.encode("password"));
-        usuario.setEmail("ezio@gmail.com");
+        usuario.setEmail("karen@gmail.com");
         usuario.setNumero("2871516235");
         usuario.setPerfil("foto.png");
         
         Roles rol = new Roles();
-        rol.setRolId(1L);
-        rol.setNombre("ADMIN");
+        rol.setRolId(2L);
+        rol.setNombre("USER");
         
         Set<UsuarioRol> usuarioRoles = new HashSet<>();
         UsuarioRol usuarioRol = new UsuarioRol();
@@ -60,7 +60,7 @@ public class Application implements CommandLineRunner{
         }catch(UsuarioFoundException exception){
             exception.printStackTrace();
             
-        }
+        }*/
     }
 
 }

@@ -10,8 +10,8 @@ public interface UsuarioService {
     
     //Guarda usuarios y pasa por un conjunto de roles
     //Set: Pasa un conjunto de roles que asignamos
-    public Usuario guardarUsuario (Usuario usuario, Set<UsuarioRol>usuarioRoles)throws Exception;
+    public Usuario guardarUsuario(Usuario usuario, Set<UsuarioRol> usuarioRoles)throws Exception;
     
-    public Usuario obtenerUsuario (String Usuario);
+    public Usuario obtenerUsuario (String username);
     
 }

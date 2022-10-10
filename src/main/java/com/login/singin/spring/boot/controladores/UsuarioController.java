@@ -40,22 +40,27 @@ public class UsuarioController {
         //Asignamos Roles
         Set<UsuarioRol> usuarioRoles = new HashSet<>();
         
-        Roles roles = new Roles();
-        roles.setRolId(2L);
-        roles.setRolNombre("USER");//Asignamos el rol Usuario por defecto a todos los que se registren
+        Roles rol = new Roles();
+        rol.setRolId(2L);
+        rol.setRolNombre("USER");
+        rol.setNombre("USUARIO");//Asignamos el rol Usuario por defecto a todos los que se registren
+        
         
         UsuarioRol usuarioRol = new UsuarioRol();
         usuarioRol.setUsuario(usuario);
-        usuarioRol.setRol(roles);
+        usuarioRol.setRol(rol);
         
         usuarioRoles.add(usuarioRol);
         return usuarioService.guardarUsuario(usuario, usuarioRoles);
     }
     
-    @GetMapping("/{usuario}")
-    public Usuario obtenerUsuario(@PathVariable("username") String username){
+    @GetMapping("/{username}")
+    public Usuario obtnerUsuario(@PathVariable("username") String username){
         return usuarioService.obtenerUsuario(username);
+        
     }
+    
+    
             
     
 }

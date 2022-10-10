@@ -24,6 +24,15 @@ public class Roles {
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rol")
     private Set<UsuarioRol> usuarioRols = new HashSet<>();
+    
+    public Roles(){
+        
+    }
+    
+    public Roles(Long rolId, String rolNombre){
+        this.rolId = rolId;
+        this.rolNombre = rolNombre;
+    }
 
     public Long getRolId() {
         return rolId;
@@ -57,6 +66,8 @@ public class Roles {
         this.usuarioRols = usuarioRols;
     }
 
+   
+    
    
     
     
