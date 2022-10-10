@@ -2,6 +2,7 @@
 package com.login.singin.spring.boot.seguridad;
 
 import com.login.singin.spring.boot.impl.UserDetailsServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,11 +20,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity //Nos permite especificar la configuracion de acceso a los recursos publicados
 @Configuration
+//prePostEnabled: Habilita las anotaciones previas y posteriores de Spring Security.
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
+    
+   
 
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -35,6 +39,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+    
+    
 
     //PasswordEncriptado
     @Override
@@ -51,13 +57,20 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/usuario/","/swagger-ui/**").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/usuario/").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .and()
-                .sessionManagement();
+                .anyRequest().authenticated()
+        .and()
+        .formLogin()
+        .permitAll()
+        .and()
+        .logout().permitAll();
                
                 
     }
+    
+   
     
     
     

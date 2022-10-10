@@ -8,6 +8,7 @@ import com.login.singin.spring.boot.entidades.serivicios.UsuarioService;
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
@@ -31,6 +32,8 @@ public class UsuarioController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     
+    
+    
     @PostMapping("/")
     public Usuario guardarUsuario(@RequestBody Usuario usuario ) throws Exception{
         usuario.setPerfil("default.png");
@@ -53,6 +56,7 @@ public class UsuarioController {
         usuarioRoles.add(usuarioRol);
         return usuarioService.guardarUsuario(usuario, usuarioRoles);
     }
+    
     
     @GetMapping("/{username}")
     public Usuario obtnerUsuario(@PathVariable("username") String username){
