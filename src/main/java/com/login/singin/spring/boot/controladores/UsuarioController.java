@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
@@ -33,8 +34,8 @@ public class UsuarioController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     
     
-    
-    @PostMapping("/")
+  
+    @PostMapping("/registro")
     public Usuario guardarUsuario(@RequestBody Usuario usuario ) throws Exception{
         usuario.setPerfil("default.png");
         
@@ -57,7 +58,7 @@ public class UsuarioController {
         return usuarioService.guardarUsuario(usuario, usuarioRoles);
     }
     
-    
+   
     @GetMapping("/{username}")
     public Usuario obtnerUsuario(@PathVariable("username") String username){
         return usuarioService.obtenerUsuario(username);

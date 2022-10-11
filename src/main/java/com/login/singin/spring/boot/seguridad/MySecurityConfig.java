@@ -21,7 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity //Nos permite especificar la configuracion de acceso a los recursos publicados
 @Configuration
 //prePostEnabled: Habilita las anotaciones previas y posteriores de Spring Security.
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
@@ -58,7 +58,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**").permitAll()
-                .antMatchers("/usuario/").hasAuthority("ADMIN")
+                .antMatchers("/usuario/registro").hasAuthority("ADMIN")
+                .antMatchers("/usuario/**").hasAnyAuthority("USUARIO","ADMIN")
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated()
         .and()
