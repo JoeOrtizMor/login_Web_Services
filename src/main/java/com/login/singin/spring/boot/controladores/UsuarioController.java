@@ -5,7 +5,7 @@ import com.login.singin.spring.boot.entidades.Roles;
 import com.login.singin.spring.boot.entidades.Usuario;
 import com.login.singin.spring.boot.entidades.UsuarioRol;
 import com.login.singin.spring.boot.entidades.serivicios.UsuarioService;
-import com.login.singin.spring.boot.repositorios.UsuarioRepository;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,7 +37,7 @@ public class UsuarioController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     
     
-  
+    //Registro de usuarios asignando el rol de "USUARIOS" por defecto
     @PostMapping("/registro")
     public Usuario guardarUsuario(@RequestBody Usuario usuario ) throws Exception{
         usuario.setPerfil("default.png");
@@ -61,18 +61,19 @@ public class UsuarioController {
         return usuarioService.guardarUsuario(usuario, usuarioRoles);
     }
     
-   
-    @GetMapping("/{username}")
+   //Visualiza los usuarios por medio de su username
+    @GetMapping("/username/{username}")
     public Usuario obtnerUsuario(@PathVariable("username") String username){
         return usuarioService.obtenerUsuario(username);
         
     }
-    
-    @DeleteMapping("/{usuarioId}")
+    //Borra a los usuarios por medio de su ID
+    @DeleteMapping("/eliminar/{usuarioId}")
     public void elminarUsuario(@PathVariable("usuarioId") Long usuarioId){
        usuarioService.eliminarusuario(usuarioId);
     }
     
+    //Consulta la lista de los usuarios registrados
     @GetMapping("/lista-usuarios")
     public List<Usuario> index(){
         return usuarioService.findAll();
