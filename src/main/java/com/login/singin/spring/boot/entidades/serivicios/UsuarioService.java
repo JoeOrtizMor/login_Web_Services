@@ -3,6 +3,7 @@ package com.login.singin.spring.boot.entidades.serivicios;
 
 import com.login.singin.spring.boot.entidades.Usuario;
 import com.login.singin.spring.boot.entidades.UsuarioRol;
+import java.util.List;
 import java.util.Set;
 
 
@@ -13,5 +14,9 @@ public interface UsuarioService {
     public Usuario guardarUsuario(Usuario usuario, Set<UsuarioRol> usuarioRoles)throws Exception;
     
     public Usuario obtenerUsuario (String username);
-    
+
+     public void eliminarusuario(Long usuarioId);
+
+    public List<Usuario> findAll();
+     
 }
