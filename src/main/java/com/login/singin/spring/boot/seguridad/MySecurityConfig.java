@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,10 +30,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     
    
 
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean(); 
-    }
+
     
     
      @Bean //Encriptamos las contraseñas de los usuarios
@@ -57,20 +55,32 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/swagger-ui/**").permitAll()
-                .antMatchers("/usuario/registro").hasAuthority("ADMIN")
+                .antMatchers("/swagger-ui/**", "/api/auth/**", "/api/**", "/swagger-ui*/**", "/techgeeknext-openapi/**", "/v3/api-docs/**").permitAll()
+                .antMatchers("/usuario/registro","/eliminar").hasAuthority("ADMIN")
+                .antMatchers("/usuario/lista-usuarios").hasAuthority("ADMIN")
                 .antMatchers("/usuario/**").hasAnyAuthority("USUARIO","ADMIN")
+                
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated()
         .and()
         .formLogin()
         .permitAll()
         .and()
-        .logout().permitAll();
+        .logout().permitAll()
+;
                
                 
     }
     
+
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean(); 
+    }
+    
+
    
     
     

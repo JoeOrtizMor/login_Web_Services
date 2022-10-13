@@ -7,6 +7,7 @@ import com.login.singin.spring.boot.entidades.UsuarioRol;
 import com.login.singin.spring.boot.entidades.serivicios.UsuarioService;
 import com.login.singin.spring.boot.repositorios.RolRepository;
 import com.login.singin.spring.boot.repositorios.UsuarioRepository;
+import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,16 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Override
     public Usuario obtenerUsuario(String username) {
         return usuarioRepository.findByUsername(username);
+    }
+    
+    @Override
+    public void eliminarusuario(Long usuarioId) {
+      usuarioRepository.deleteById(usuarioId);
+    }
+
+    @Override
+    public List<Usuario> findAll() {
+         return (List<Usuario>)usuarioRepository.findAll();
     }
     
     
