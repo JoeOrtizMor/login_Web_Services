@@ -1,13 +1,13 @@
 
 package com.login.singin.spring.boot.controladores;
-import com.login.singin.spring.boot.repositorios.TokenService;
+import com.login.singin.spring.boot.repositorios.TokenRedisService;
 import com.login.singin.spring.boot.DTO.JwtRedisDTO;
 import com.login.singin.spring.boot.DTO.LogueoDTO;
 import com.login.singin.spring.boot.DTO.TokenJwtDTO;
 import com.login.singin.spring.boot.entidades.Roles;
 import com.login.singin.spring.boot.entidades.Usuario;
 import com.login.singin.spring.boot.entidades.UsuarioRol;
-import com.login.singin.spring.boot.entidades.serivicios.UsuarioService;
+import com.login.singin.spring.boot.entidades.servicios.UsuarioService;
 import com.login.singin.spring.boot.excepciones.JwtExceptionSeguridad;
 import com.login.singin.spring.boot.repositorios.UsuarioRepository;
 import com.login.singin.spring.boot.seguridad.JwtTokenProvider;
@@ -24,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,6 +35,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -43,9 +43,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/usuario")
 public class UsuarioController {
     
-    private TokenService tokenService; 
+    private TokenRedisService tokenService; 
     
-    public UsuarioController(TokenService tokenService) {
+    public UsuarioController(TokenRedisService tokenService) {
         this.tokenService = tokenService;
     }
     
@@ -72,12 +72,16 @@ public class UsuarioController {
     @Autowired
     private JwtExceptionSeguridad jwtExceptionSeguridad; 
     
+    //@Autowired
+    //private GrantedAuthority grantedAuthority;
+    
     
     
   
     @PostMapping("/registro")
-    public Usuario guardarUsuario(@RequestBody Usuario usuario ) throws Exception{
+    public Usuario guardarUsuario(@RequestBody Usuario usuario) throws Exception{
         usuario.setPerfil("default.png");
+        
         
         usuario.setPassword(bCryptPasswordEncoder.encode(usuario.getPassword()));
         
@@ -100,9 +104,13 @@ public class UsuarioController {
     
    
     @GetMapping("/{username}")
-    public Usuario obtnerUsuario(@PathVariable("username") String username){
-        return usuarioService.obtenerUsuario(username);
+    public Usuario obtnerUsuario(@PathVariable("username") String username, @RequestParam(required = false) String token){
+        //validacion del token
+        jwtExceptionSeguridad.validarToken(token);
+        //String datos = grantedAuthority.getAuthority();
         
+        return usuarioService.obtenerUsuario(username);
+
     }
     
     

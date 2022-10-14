@@ -55,22 +55,22 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/swagger-ui/**", "/api/auth/**", "/api/**", "/swagger-ui*/**", "/techgeeknext-openapi/**", "/v3/api-docs/**").permitAll()
-                .antMatchers("/usuario/registro","/eliminar").hasAuthority("ADMIN")
+                .antMatchers("/swagger-ui/**","/swagger-ui/index/**","/forgot_password","/reset_password").permitAll()
+                .antMatchers("/usuario/registro","/usuario/eliminar/**").hasAuthority("ADMIN")
                 .antMatchers("/usuario/lista-usuarios").hasAuthority("ADMIN")
-                .antMatchers("/usuario/**").hasAnyAuthority("USUARIO","ADMIN")
-                
+                .antMatchers("/usuario/username/**").hasAnyAuthority("USUARIO","ADMIN")
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated()
         .and()
         .formLogin()
         .permitAll()
         .and()
-        .logout().permitAll()
-;
-               
+        .logout().permitAll();
+
                 
+       
     }
+    
     
 
 
@@ -79,13 +79,6 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean(); 
     }
-    
 
-   
-    
-    
-    
-    
-    
     
 }

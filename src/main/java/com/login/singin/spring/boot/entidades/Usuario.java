@@ -34,6 +34,7 @@ public class Usuario implements UserDetails{
     private String numero;
     private boolean enable = true;
     private String perfil;
+    private String resetPasswordToken;
     
     
     //Un usuario puede tener muchos "Roles"
@@ -126,8 +127,13 @@ public class Usuario implements UserDetails{
         this.usuarioRoles = usuarioRoles;
     }
 
-   
-  
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
 
     
     //Metodo que obtiene los nombres de los roles

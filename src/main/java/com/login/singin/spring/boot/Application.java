@@ -3,7 +3,7 @@ package com.login.singin.spring.boot;
 import com.login.singin.spring.boot.entidades.Roles;
 import com.login.singin.spring.boot.entidades.Usuario;
 import com.login.singin.spring.boot.entidades.UsuarioRol;
-import com.login.singin.spring.boot.entidades.serivicios.UsuarioService;
+import com.login.singin.spring.boot.entidades.servicios.UsuarioService;
 import com.login.singin.spring.boot.excepciones.UsuarioFoundException;
 import java.util.HashSet;
 import java.util.Set;

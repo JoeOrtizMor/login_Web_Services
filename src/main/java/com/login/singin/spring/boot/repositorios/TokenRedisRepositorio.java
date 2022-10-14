@@ -8,7 +8,7 @@ import java.util.Map;
 
     
 
-public interface TokenRepositorio{
+public interface TokenRedisRepositorio{
     
     //Repositorio para peticioens de tokens para redis
     Map<String, JwtRedisDTO> findAll();

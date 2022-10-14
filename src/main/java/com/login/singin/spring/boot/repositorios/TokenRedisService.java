@@ -9,13 +9,13 @@ import org.springframework.stereotype.Repository;
 
 //clase para peticiones de tokens en redis
 @Repository
-public class TokenService implements TokenRepositorio{
+public class TokenRedisService implements TokenRedisRepositorio{
     private static final String KEY = "Token";
 
     private RedisTemplate<String, JwtRedisDTO> redisTemplate;
     private HashOperations hashOperations;
 
-    public TokenService(RedisTemplate<String, JwtRedisDTO> redisTemplate) {
+    public TokenRedisService(RedisTemplate<String, JwtRedisDTO> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
