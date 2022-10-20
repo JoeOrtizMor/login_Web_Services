@@ -116,23 +116,30 @@ public class UsuarioController {
     
     @Operation(summary = "Inicio de sesion", description = "Inicio de sesión a través del correo/usuario y contraseña", tags = "Sesiones y registros")
     @PostMapping("/iniciarSesion")
+    
      public ResponseEntity<TokenJwtDTO> authenticateUser(@RequestBody  LogueoDTO logueoDTO){
         System.out.println("a");
          
     //obteniendo y almacenando usuario o contraseña solicitado en el requestBody
     String usernameOrEmail = logueoDTO.getUsernameOrEmail();
-           System.out.println("NOMBRE DE USUARIO: "+usernameOrEmail);
+
     //almacenando la tabla del usuario encontrado por el nombre o correo
     Optional<Usuario> usuario = usuarioRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
     
+    //almacenando nombre de usuario para usarlo como autenticacion
+    String username = usuario.get().getUsername();
+    
     //obteniendo id del usuario de la tabla guardada
     String Iduser = String.valueOf(usuario.get().getId());
+    
+        System.out.println("NOMBRE DE USUARIO O CORRREO: "+usernameOrEmail);
+        System.out.println("NOMBRE DE USUARIO : "+username);
         System.out.println("ID DE USUARIO: "+Iduser);
         System.out.println("CONTRASEÑA DE USUARIO "+logueoDTO.getPassword());
       
     
     //autenticacion del usuario con los datos de LoginDTO con uso de spring    
-    Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(logueoDTO.getUsernameOrEmail(), logueoDTO.getPassword()));
+    Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, logueoDTO.getPassword()));
     
     //constructor para enviar datos a redis (intentar inyectarlo)
     JwtRedisDTO jwtRedisDTO = new JwtRedisDTO();

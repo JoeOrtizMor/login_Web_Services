@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtExceptionSeguridad {
     
+    private final String PREFIX = "Bearer ";
+	private final String SECRET = "JWTSecretKey";
+    
     
         //clave secreta siendo llamada desde properties
     @Value("${app.jwt-secret}")
@@ -21,7 +24,8 @@ public class JwtExceptionSeguridad {
     public boolean validarToken(String token){
         //try catch de acuerdo a que excepción  se cumpla 
         try {
-            Jwts.parser().setSigningKey(jwtSecret.getBytes()).parseClaimsJws(token).getBody();
+            String jwtToken = token.replace(PREFIX, "");
+            Jwts.parser().setSigningKey(jwtSecret.getBytes()).parseClaimsJws(jwtToken).getBody();
             return true;
             
         } catch (SignatureException ex) {

@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @CrossOrigin("*")

@@ -16,8 +16,7 @@ public class Roles {
     
     @Id
     private Long rolId;
-    
-    
+   
     private String nombre;
     
     private String rolNombre;

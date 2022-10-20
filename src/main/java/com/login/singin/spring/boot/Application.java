@@ -5,6 +5,8 @@ import com.login.singin.spring.boot.entidades.Usuario;
 import com.login.singin.spring.boot.entidades.UsuarioRol;
 import com.login.singin.spring.boot.entidades.servicios.UsuarioService;
 import com.login.singin.spring.boot.excepciones.UsuarioFoundException;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ public class Application implements CommandLineRunner{
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
    
+    
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -32,7 +35,7 @@ public class Application implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
         //Registro del Usuario admin
-        /*try{
+       /* try{
         Usuario usuario = new Usuario();
         
         usuario.setNombre("Karen");
