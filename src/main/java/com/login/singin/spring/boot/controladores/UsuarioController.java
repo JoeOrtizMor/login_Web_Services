@@ -78,17 +78,7 @@ public class UsuarioController {
     
     
     
-    //Permite la conexion con otros microservicios para hacer peticiones
-    private final WebClient.Builder webClientBuilder;
-
-    public UsuarioController(WebClient.Builder webClientBuilder) {
-        this.webClientBuilder = webClientBuilder;
-    }
-    
-    
-    
-    
-    //Registro de usuarios asignando el rol de "USUARIOS" por defecto
+  
     @PostMapping("/registro")
     public Usuario guardarUsuario(@RequestBody Usuario usuario) throws Exception{
         usuario.setPerfil("default.png");
@@ -115,18 +105,10 @@ public class UsuarioController {
     
    
     @GetMapping("/{username}")
-    public Usuario obtnerUsuario(@PathVariable("username") String username, @RequestParam(required = false) String token){
-        //validacion del token
-        jwtExceptionSeguridad.validarToken(token);
-        //String datos = grantedAuthority.getAuthority();
+    public Usuario obtnerUsuario(@PathVariable("username") String username){
         
         return usuarioService.obtenerUsuario(username);
 
-    }
-    //Borra a los usuarios por medio de su ID
-    @DeleteMapping("/eliminar/{usuarioId}")
-    public void elminarUsuario(@PathVariable("usuarioId") Long usuarioId){
-       usuarioService.eliminarusuario(usuarioId);
     }
     
     
@@ -185,6 +167,7 @@ public class UsuarioController {
             tags = "Sesiones y registros")
     
     //peticion para realizar un refresh token
+     
     @PostMapping("/Refresh")
     //pidiendo todos los datos que se tiene declarado en JwtRedisDTO
     public ResponseEntity<JwtRedisDTO> refresh(@RequestBody JwtRedisDTO jwtRedisDTO) throws ParseException{

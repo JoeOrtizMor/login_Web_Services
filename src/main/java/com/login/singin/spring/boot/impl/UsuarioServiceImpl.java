@@ -68,19 +68,7 @@ public class UsuarioServiceImpl implements UsuarioService{
          return (List<Usuario>)usuarioRepository.findAll();
     }
     
-    
-
-    //Metodo para eliminar un usuario
-
-    @Override
-    public void eliminarusuario(Long usuarioId) {
-      usuarioRepository.deleteById(usuarioId);
-    }
-
-    @Override
-    public List<Usuario> findAll() {
-         return (List<Usuario>)usuarioRepository.findAll();
-    }
+   
 
   
 

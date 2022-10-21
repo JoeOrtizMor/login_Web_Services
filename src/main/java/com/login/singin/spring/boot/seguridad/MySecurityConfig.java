@@ -60,26 +60,13 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()            
                 .antMatchers("/api/auth/**", "/api/**", "/swagger-ui*/**", "/techgeeknext-openapi/**", "/v3/api-docs/**","/swagger-ui/**","/swagger-ui/index/**","/forgot_password","/rese_password","/usuario/registro","/usuario/eliminar/**").permitAll()
                //.antMatchers().hasAuthority("ADMIN")
-                //.antMatchers().hasAuthority("ADMIN")
-                //.antMatchers().hasAnyAuthority("USUARIO","ADMIN")
+                .antMatchers("/helloAdmin","/helloUser").authenticated()
+                .antMatchers("/helloAdmin").hasAuthority("ADMIN")
+                .antMatchers("/helloUser").hasAuthority("USUARIO")
+                .antMatchers("/helloUser").hasAnyAuthority("USUARIO","ADMIN")
                 .antMatchers(HttpMethod.POST, "/usuario/iniciarSesion").permitAll()
-                //.antMatchers(HttpMethod.OPTIONS).permitAll()
-                  .anyRequest().authenticated()
-        /*.and()
-        .formLogin()
-        .permitAll()
-        .and()
-        .logout().permitAll()*/;
-       
-        
-        
-        /*http.cors().and().csrf().disable()
-        .addFilterAfter(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/usuario/iniciarSesion").permitAll()*/
-                                //.antMatchers("/api/auth/**", "/api/**", "/swagger-ui*/**", "/techgeeknext-openapi/**", "/v3/api-docs/**").permitAll()
-				//.anyRequest().authenticated();;             
-       
+                .antMatchers(HttpMethod.OPTIONS).permitAll();
+
     }
 
     @Override
