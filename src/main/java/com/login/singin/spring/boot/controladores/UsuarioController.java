@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @RestController
 @RequestMapping("/usuario")
@@ -35,6 +36,16 @@ public class UsuarioController {
     
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
+    
+    //Permite la conexion con otros microservicios para hacer peticiones
+    private final WebClient.Builder webClientBuilder;
+
+    public UsuarioController(WebClient.Builder webClientBuilder) {
+        this.webClientBuilder = webClientBuilder;
+    }
+    
+    
     
     
     //Registro de usuarios asignando el rol de "USUARIOS" por defecto
@@ -76,6 +87,6 @@ public class UsuarioController {
     //Consulta la lista de los usuarios registrados
     @GetMapping("/lista-usuarios")
     public List<Usuario> index(){
-        return usuarioService.findAll();
+        return usuarioService.findAll(); 
     }
 }

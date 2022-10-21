@@ -7,10 +7,12 @@ import com.login.singin.spring.boot.entidades.serivicios.UsuarioService;
 import com.login.singin.spring.boot.excepciones.UsuarioFoundException;
 import java.util.HashSet;
 import java.util.Set;
+import org.springdoc.core.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
@@ -61,6 +63,14 @@ public class Application implements CommandLineRunner{
             exception.printStackTrace();
             
         }*/
+    }
+    
+    @Bean
+    public GroupedOpenApi publicApi(){
+        return GroupedOpenApi.builder()
+        .group("spring-public")
+        .packagesToScan("com.login")
+        .build();
     }
 
 }

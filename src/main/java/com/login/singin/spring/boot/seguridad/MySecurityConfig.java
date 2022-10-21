@@ -57,7 +57,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/swagger-ui/**","/forgot_password").permitAll()
                 .antMatchers("/usuario/registro","/usuario/eliminar/**").hasAuthority("ADMIN")
                 .antMatchers("/usuario/lista-usuarios").hasAuthority("ADMIN")
                 .antMatchers("/usuario/username/**").hasAnyAuthority("USUARIO","ADMIN")

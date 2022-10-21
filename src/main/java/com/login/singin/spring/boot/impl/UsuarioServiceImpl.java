@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 //Tagueamos que es un servicio
 //Implementamos sus servicios junto con sus constructores
@@ -48,6 +48,13 @@ public class UsuarioServiceImpl implements UsuarioService{
     //Metodos de UsuarioService
     @Override
     public Usuario obtenerUsuario(String username) {
+        
+        if(username != null){
+            System.out.println("El usuario solicitado no existe");
+        }else{
+            System.out.println("Usuario encontrado");
+        }
+        
         return usuarioRepository.findByUsername(username);
     }
     
@@ -64,6 +71,8 @@ public class UsuarioServiceImpl implements UsuarioService{
     public List<Usuario> findAll() {
          return (List<Usuario>)usuarioRepository.findAll();
     }
+
+  
 
    
 

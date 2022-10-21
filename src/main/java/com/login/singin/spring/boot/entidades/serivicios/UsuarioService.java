@@ -18,5 +18,7 @@ public interface UsuarioService {
      public void eliminarusuario(Long usuarioId);
 
     public List<Usuario> findAll();
+    
+  
      
 }
