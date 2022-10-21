@@ -13,9 +13,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @EnableWebSecurity //Nos permite especificar la configuracion de acceso a los recursos publicados
@@ -29,10 +31,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     
    
 
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean(); 
-    }
+
     
     
      @Bean //Encriptamos las contraseñas de los usuarios
@@ -52,31 +51,42 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         
         http
-                .csrf()
-                .disable()
+               
                 .cors()
                 .disable()
-                .authorizeRequests()
-                .antMatchers("/swagger-ui/**","/forgot_password").permitAll()
-                .antMatchers("/usuario/registro","/usuario/eliminar/**").hasAuthority("ADMIN")
-                .antMatchers("/usuario/lista-usuarios").hasAuthority("ADMIN")
-                .antMatchers("/usuario/username/**").hasAnyAuthority("USUARIO","ADMIN")
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .anyRequest().authenticated()
-        .and()
+                .csrf()
+                .disable()
+                .addFilterAfter(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .authorizeRequests()            
+                .antMatchers("/api/auth/**", "/api/**", "/swagger-ui*/**", "/techgeeknext-openapi/**", "/v3/api-docs/**","/swagger-ui/**","/swagger-ui/index/**","/forgot_password","/rese_password","/usuario/registro","/usuario/eliminar/**").permitAll()
+               //.antMatchers().hasAuthority("ADMIN")
+                //.antMatchers().hasAuthority("ADMIN")
+                //.antMatchers().hasAnyAuthority("USUARIO","ADMIN")
+                .antMatchers(HttpMethod.POST, "/usuario/iniciarSesion").permitAll()
+                //.antMatchers(HttpMethod.OPTIONS).permitAll()
+                  .anyRequest().authenticated()
+        /*.and()
         .formLogin()
         .permitAll()
         .and()
-        .logout().permitAll();
-               
-                
+        .logout().permitAll()*/;
+       
+        
+        
+        /*http.cors().and().csrf().disable()
+        .addFilterAfter(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+				.authorizeRequests()
+				.antMatchers(HttpMethod.POST, "/usuario/iniciarSesion").permitAll()*/
+                                //.antMatchers("/api/auth/**", "/api/**", "/swagger-ui*/**", "/techgeeknext-openapi/**", "/v3/api-docs/**").permitAll()
+				//.anyRequest().authenticated();;             
+       
     }
-    
-   
-    
-    
-    
-    
-    
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean(); 
+    }
+
     
 }

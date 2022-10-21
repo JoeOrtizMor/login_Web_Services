@@ -1,5 +1,5 @@
 
-package com.login.singin.spring.boot.entidades.serivicios;
+package com.login.singin.spring.boot.entidades.servicios;
 
 import com.login.singin.spring.boot.entidades.Usuario;
 import com.login.singin.spring.boot.entidades.UsuarioRol;
